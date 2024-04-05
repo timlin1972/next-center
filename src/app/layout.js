@@ -11,6 +11,9 @@ export const metadata = {
     template: "%s | Next-Center",
   },
   description: "Center Next Generation",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
