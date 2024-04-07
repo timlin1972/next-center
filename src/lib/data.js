@@ -5,7 +5,7 @@ import { unstable_noStore as noStore } from "next/cache";
 export const fetchPosts = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 5;
+  const ITEM_PER_PAGE = 10;
 
   try {
     connectToDb();
@@ -45,7 +45,7 @@ export const getPost = async (id) => {
 export const fetchUsers = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 5;
+  const ITEM_PER_PAGE = 10;
 
   try {
     connectToDb();

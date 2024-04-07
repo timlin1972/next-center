@@ -2,14 +2,16 @@
 
 import { usePathname } from "next/navigation";
 import styles from "./navbar.module.css";
-import {
-  MdNotifications,
-  MdOutlineChat,
-  MdPublic,
-  MdSearch,
-} from "react-icons/md";
+import { useState, useEffect } from "react";
+import Clock from "react-live-clock";
 
 const Navbar = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const pathname = usePathname();
 
   return (
@@ -18,15 +20,7 @@ const Navbar = () => {
         {pathname.split("/").pop().replace("_", " ")}
       </div>
       <div className={styles.menu}>
-        <div className={styles.search}>
-          <MdSearch />
-          <input type="text" placeholder="Search..." className={styles.input} />
-        </div>
-        <div className={styles.icons}>
-          <MdOutlineChat size={20} />
-          <MdNotifications size={20} />
-          <MdPublic size={20} />
-        </div>
+        {isClient && <Clock format={"h:mm:ssa"} ticking={true} />}
       </div>
     </div>
   );

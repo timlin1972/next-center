@@ -1,3 +1,5 @@
+"use server";
+
 const si = require("systeminformation");
 
 export const getSystemInformationData = async () => {
