@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  gap: 100px;
+}
+
+.textContainer {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.author {
+  font-size: 16px;
+  color: gray;
+}
+
+.desc {
+  width: 90%;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  font-weight: 300;
+  color: floralwhite;
+}
+
+.detail {
+  display: flex;
+  gap: 20px;
+}
+
+.content {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  color: gray;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}

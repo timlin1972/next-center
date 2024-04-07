@@ -25,8 +25,8 @@ export const addPost = async (prevState, formData) => {
 
     await newPost.save();
     console.log("saved to db");
-    revalidatePath("/blog");
-    revalidatePath("/admin");
+    revalidatePath("/main/blog");
+    return { success: true };
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
@@ -41,8 +41,8 @@ export const deletePost = async (formData) => {
 
     await Post.findByIdAndDelete(id);
     console.log("deleted from db");
-    revalidatePath("/blog");
-    revalidatePath("/admin");
+    revalidatePath("/main/blog");
+    return { success: true };
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
@@ -67,7 +67,8 @@ export const addUser = async (prevState, formData) => {
 
     await newUser.save();
     console.log("saved to db");
-    revalidatePath("/admin");
+    revalidatePath("/main/users");
+    return { success: true };
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
@@ -83,10 +84,44 @@ export const deleteUser = async (formData) => {
     await Post.deleteMany({ userId: id });
     await User.findByIdAndDelete(id);
     console.log("deleted from db");
-    revalidatePath("/admin");
+    revalidatePath("/main/users");
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
+  }
+};
+
+export const updateUser = async (formData) => {
+  const { id, username, email, password, isAdmin } =
+    Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+
+    const updateFields = {
+      username,
+      email,
+      password,
+      isAdmin,
+    };
+
+    Object.keys(updateFields).forEach(
+      (key) =>
+        (updateFields[key] === "" || undefined) && delete updateFields[key]
+    );
+
+    if (typeof updateFields.password !== "undefined") {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      updateFields.password = hashedPassword;
+    }
+
+    await User.findByIdAndUpdate(id, updateFields);
+    revalidatePath("/main/users");
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update user!");
   }
 };
 
