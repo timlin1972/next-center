@@ -2,15 +2,18 @@ import { connectToDb } from "./utils";
 import { Post, User } from "./models";
 import { unstable_noStore as noStore } from "next/cache";
 
-export const fetchPosts = async (q, page) => {
+export const fetchPosts = async (q, page, condition) => {
   const regex = new RegExp(q, "i");
 
   const ITEM_PER_PAGE = 10;
 
   try {
     connectToDb();
-    const count = await Post.find({ title: { $regex: regex } }).count();
-    const posts = await Post.find({ title: { $regex: regex } })
+    const count = await Post.find({
+      title: { $regex: regex },
+      ...condition,
+    }).count();
+    const posts = await Post.find({ title: { $regex: regex }, ...condition })
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1));
     return { count, posts };

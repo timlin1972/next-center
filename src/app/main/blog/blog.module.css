@@ -31,6 +31,14 @@
   font-weight: bold;
 }
 
+.author {
+  color: gray;
+}
+
+.archive {
+  text-align: center;
+}
+
 .buttons {
   display: flex;
   gap: 10px;

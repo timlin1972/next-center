@@ -7,6 +7,7 @@ import Search from "@/components/main/search/search";
 import Pagination from "@/components/main/pagination/pagination";
 import { auth } from "@/lib/auth";
 import { fetchPosts } from "@/lib/data";
+import { MdCheck } from "react-icons/md";
 
 export const metadata = {
   title: "Blog",
@@ -15,13 +16,14 @@ export const metadata = {
 
 const PostUser = async ({ userId }) => {
   const user = await getUser(userId);
-  return <div>{user.username}</div>;
+  return <div className={styles.author}>{user.username}</div>;
 };
 
 const PostTable = ({ data }) => (
   <table className={styles.table}>
     <thead>
       <tr>
+        <td>Archive</td>
         <td>Title</td>
         <td>Author</td>
         <td>Description</td>
@@ -32,6 +34,7 @@ const PostTable = ({ data }) => (
       {data.map((data) => {
         return (
           <tr key={data.title}>
+            <td className={styles.archive}>{data.archive && <MdCheck />}</td>
             <td className={styles.title}>
               <Link className={styles.link} href={`/main/blog/${data._id}`}>
                 {data.title}
@@ -71,7 +74,7 @@ const Blog = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
 
-  const { count, posts } = await fetchPosts(q, page);
+  const { count, posts } = await fetchPosts(q, page, { archive: false });
 
   const session = await auth();
   const user = await getUserByEmail(session.user.email);

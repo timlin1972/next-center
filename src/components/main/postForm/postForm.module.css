@@ -19,6 +19,15 @@
   color: gray;
 }
 
+.archive {
+  display: flex;
+}
+
+.archiveTitle {
+  font-size: 20px;
+  margin-left: 12px;
+}
+
 .desc {
   width: 90%;
   margin-left: 10px;

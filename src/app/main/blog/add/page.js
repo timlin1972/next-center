@@ -10,9 +10,6 @@ const Add = ({ searchParams }) => {
   const [state, formAction] = useFormState(addPost, undefined);
   const router = useRouter();
 
-  console.log(".......");
-  console.log(searchParams);
-
   useEffect(() => {
     state?.success && router.push("/main/blog");
   }, [state?.success, router]);
@@ -22,7 +19,7 @@ const Add = ({ searchParams }) => {
       <form action={formAction} className={styles.form}>
         <input type="hidden" name="userId" value={searchParams.userId} />
         <input type="text" name="title" placeholder="Title" />
-        <textarea type="text" name="desc" placeholder="desc" rows={10} />
+        <textarea type="text" name="desc" placeholder="desc" rows={5} />
         <textarea type="text" name="body" placeholder="body" rows={10} />
         <button>Add</button>
         {state?.error}

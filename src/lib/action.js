@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import { signIn, signOut } from "./auth";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
+import { arch } from "os";
 
 export const handleGithubLogin = async () => {
   await signIn("github");
@@ -46,6 +47,33 @@ export const deletePost = async (formData) => {
   } catch (err) {
     console.log(err);
     return { error: "Something went wrong!" };
+  }
+};
+
+export const updatePost = async (prevState, formData) => {
+  const { id, title, desc, body, archive } = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+
+    const updateFields = {
+      title,
+      desc,
+      body,
+      archive: typeof archive !== "undefined",
+    };
+
+    Object.keys(updateFields).forEach(
+      (key) =>
+        (updateFields[key] === "" || undefined) && delete updateFields[key]
+    );
+
+    await Post.findByIdAndUpdate(id, updateFields);
+    revalidatePath("/main/posts");
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update user!");
   }
 };
 

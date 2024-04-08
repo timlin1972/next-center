@@ -1,21 +1,19 @@
 import styles from "./post.module.css";
-import { getPost } from "@/lib/data";
 import { Suspense } from "react";
-import { remark } from "remark";
-import html from "remark-html";
-import { getUser } from "@/lib/data";
+import { getUser, getPost } from "@/lib/data";
+import PostForm from "@/components/main/postForm/postForm";
 
-const getData = async (id) => {
-  const res = await fetch(
-    `http://localhost:${process.env.PORT}/api/blog/${id}`
-  );
+// const getData = async (id) => {
+//   const res = await fetch(
+//     `http://localhost:${process.env.PORT}/api/blog/${id}`
+//   );
 
-  if (!res.ok) {
-    throw new Error("Something went wrong");
-  }
+//   if (!res.ok) {
+//     throw new Error("Something went wrong");
+//   }
 
-  return res.json();
-};
+//   return res.json();
+// };
 
 export const generateMetadata = async ({ params }) => {
   const { id } = params;
@@ -26,13 +24,6 @@ export const generateMetadata = async ({ params }) => {
     title: post.title,
     description: post.desc,
   };
-};
-
-const covertMarkdownIntoHtml = async (content) => {
-  const processedContent = await remark().use(html).process(content);
-  const contentHtml = processedContent.toString();
-
-  return contentHtml;
 };
 
 const PostUser = async ({ userId }) => {
@@ -49,16 +40,12 @@ const PostUser = async ({ userId }) => {
 const Post = async ({ params }) => {
   const { id } = params;
 
-  const post = await getData(id);
-  const bodyHtml = await covertMarkdownIntoHtml(post.body);
+  // const post = await getData(id);
+  const post = await getPost(id);
 
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
-        <div className={styles.texts}>
-          <h1 className={styles.title}>{post.title}</h1>
-          <p className={styles.desc}>{post.desc}</p>
-        </div>
         <div className={styles.detail}>
           {post && (
             <Suspense fallback={<div>Loading...</div>}>
@@ -66,11 +53,7 @@ const Post = async ({ params }) => {
             </Suspense>
           )}
         </div>
-        <h1 className={styles.title}>Content</h1>
-        <div
-          className={styles.content}
-          dangerouslySetInnerHTML={{ __html: bodyHtml }}
-        />
+        <PostForm post={post} />
       </div>
     </div>
   );
