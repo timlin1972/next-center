@@ -2,15 +2,16 @@ import MenuLink from "./menuLink/menuLink";
 import styles from "./sidebar.module.css";
 import {
   MdDashboard,
+  MdBook,
   MdSupervisedUserCircle,
   MdOutlineSettings,
   MdOutlineEventNote,
+  MdCloudQueue,
   MdLogout,
 } from "react-icons/md";
 import { handleGithubLogout } from "@/lib/action";
-import { auth, signOut } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { getUserByEmail } from "@/lib/data";
-import { redirect } from "next/navigation";
 
 const menuItems = [
   {
@@ -24,7 +25,7 @@ const menuItems = [
       {
         title: "Blog",
         path: "/main/blog",
-        icon: <MdSupervisedUserCircle />,
+        icon: <MdBook />,
       },
       {
         title: "Users",
@@ -35,6 +36,11 @@ const menuItems = [
         title: "System Information",
         path: "/main/system_information",
         icon: <MdOutlineEventNote />,
+      },
+      {
+        title: "Weather",
+        path: "/main/weather",
+        icon: <MdCloudQueue />,
       },
     ],
   },
