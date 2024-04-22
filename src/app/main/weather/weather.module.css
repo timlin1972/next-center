@@ -5,11 +5,19 @@
 }
 
 .icon {
-  size: 50px;
+  font-size: 30px;
 }
 
 .unit {
   padding: 10px;
+}
+
+.title {
+  font-size: 25px;
+}
+
+.subtitle {
+  font-size: 18px;
 }
 
 .townName {
