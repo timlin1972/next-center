@@ -19,7 +19,7 @@ export const fetchPosts = async (q, page, condition) => {
     return { count, posts };
   } catch (err) {
     console.log(err);
-    throw new Error("Failed to fetch postts!");
+    throw new Error("Failed to fetch posts!");
   }
 };
 

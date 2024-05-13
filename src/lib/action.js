@@ -6,7 +6,6 @@ import bcrypt from "bcryptjs";
 import { signIn, signOut } from "./auth";
 import { Post, User } from "./models";
 import { connectToDb } from "./utils";
-import { arch } from "os";
 
 export const handleGithubLogin = async () => {
   await signIn("github");

@@ -8,6 +8,11 @@ import {
   MdOutlineEventNote,
   MdCloudQueue,
   MdLogout,
+  MdAccountBalance,
+  MdCallMade,
+  MdCallReceived,
+  MdCallMissedOutgoing,
+  MdAttachMoney,
 } from "react-icons/md";
 import { handleGithubLogout } from "@/lib/action";
 import { auth } from "@/lib/auth";
@@ -41,6 +46,36 @@ const menuItems = [
         title: "Weather",
         path: "/main/weather",
         icon: <MdCloudQueue />,
+      },
+    ],
+  },
+  {
+    title: "Accounting",
+    list: [
+      {
+        title: "Account",
+        path: "/main/accounting/account",
+        icon: <MdAccountBalance />,
+      },
+      {
+        title: "Expanse",
+        path: "/main/accounting/expanse",
+        icon: <MdCallMade />,
+      },
+      {
+        title: "Income",
+        path: "/main/accounting/income",
+        icon: <MdCallReceived />,
+      },
+      {
+        title: "Transfer",
+        path: "/main/accounting/transfer",
+        icon: <MdCallMissedOutgoing />,
+      },
+      {
+        title: "Record",
+        path: "/main/accounting/record",
+        icon: <MdAttachMoney />,
       },
     ],
   },
